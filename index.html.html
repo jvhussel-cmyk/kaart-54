@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Wouter - 54ste verjaardag</title>
+<style>
+  :root{
+    --bg:#fff7f6;
+    --accent:#b71c1c; /* feestelijk rood */
+    --gold:#d4a017;
+    --card:#ffffff;
+    --shadow: 0 8px 30px rgba(0,0,0,0.12);
+    --round:18px;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff7f6 0%, #fff1ee 100%);display:flex;align-items:center;justify-content:center;}
+  .wrap{width:920px;max-width:95%;background:var(--card);border-radius:24px;box-shadow:var(--shadow);padding:28px;position:relative;overflow:hidden;}
+  header{display:flex;gap:18px;align-items:center;}
+  .logo{
+    width:86px;height:86px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--gold));
+    display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:22px;
+    box-shadow: 0 6px 18px rgba(183,28,28,0.14), inset 0 -6px 18px rgba(255,255,255,0.08);
+  }
+  h1{margin:0;font-size:22px;color:var(--accent);}
+  p.lead{margin:6px 0 0;color:#333;font-size:15px;}
+  .scene{margin-top:18px;display:flex;gap:20px;align-items:center;}
+  .plate{
+    width:360px;height:260px;background:transparent;flex:0 0 360px;position:relative;
+  }
+  /* plate illustration using SVG container */
+  .info{flex:1;display:flex;flex-direction:column;gap:12px;padding:12px 6px;}
+  .card{
+    background:linear-gradient(180deg,#fff 0%, #fff6f6 100%);
+    border-radius:14px;padding:14px;border:2px solid rgba(215,170,80,0.12);
+  }
+  .invline{font-size:16px;color:#222;}
+  .meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:#3b3b3b;}
+  .meta .pill{background:linear-gradient(180deg,#fff,#fff5f3);border-radius:999px;padding:8px 12px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 4px 10px rgba(0,0,0,0.04);}
+  .actions{margin-top:12px;display:flex;gap:10px;align-items:center;}
+  .btn{
+    background:var(--accent);color:white;padding:10px 14px;border-radius:10px;border:none;font-weight:600;cursor:pointer;
+    box-shadow:0 6px 18px rgba(183,28,28,0.18);
+  }
+  .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(183,28,28,0.12);box-shadow:none;}
+  footer{margin-top:14px;font-size:13px;color:#666;}
+  /* confetti canvas overlay */
+  #confetti{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:6;}
+  /* plate SVG styling */
+  .plate svg{width:100%;height:100%}
+  .plate .steam{opacity:0;transform-origin:50% 100%;}
+  /* animation sequence */
+  .line{opacity:0;transform:translateY(10px);animation:pop 700ms forwards;}
+  .line.l1{animation-delay:400ms}
+  .line.l2{animation-delay:800ms}
+  .line.l3{animation-delay:1200ms}
+  .line.l4{animation-delay:1600ms}
+  .line.l5{animation-delay:2000ms}
+  .rsvp-note{margin-top:8px;color:#444;font-size:14px}
+  @keyframes pop{
+    to{opacity:1;transform:none}
+  }
+  /* steam animation */
+  @keyframes steamUp{
+    0%{transform:translateY(8px) scale(0.9);opacity:0}
+    30%{opacity:0.6}
+    100%{transform:translateY(-28px) scale(1.06);opacity:0}
+  }
+  /* responsive */
+  @media (max-width:720px){
+    .scene{flex-direction:column;align-items:center}
+    .plate{order:0}
+  }
+  /* playful confetti pieces styling when JS adds DOM bits */
+  .confetti-piece{width:10px;height:16px;position:absolute;opacity:0.95;border-radius:2px;z-index:8;pointer-events:none;transform-origin:center;}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="wrap" role="main" aria-labelledby="title">
+  <header>
+    <div class="logo">W54</div>
+    <div>
+      <h1 id="title">Alweer een jaar wijzer 😁🥳!</h1>
+      <p class="lead">En alweer een cadeau bedenken… 🤨</p>
+    </div>
+  </header>
+
+  <div class="scene">
+    <div class="plate" aria-hidden="true">
+      <!-- Inline SVG plate + happy54 text + steam groups -->
+      <svg viewBox="0 0 720 520" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bord met Happy 54">
+        <!-- background table -->
+        <defs>
+          <radialGradient id="g1" cx="50%" cy="30%">
+            <stop offset="0%" stop-color="#fffefc"/>
+            <stop offset="100%" stop-color="#fff1e9"/>
+          </radialGradient>
+          <linearGradient id="gold" x1="0" x2="1">
+            <stop offset="0" stop-color="#ffd07f"/>
+            <stop offset="1" stop-color="#d4a017"/>
+          </linearGradient>
+        </defs>
+
+        <rect x="0" y="0" width="720" height="520" fill="transparent"/>
+
+        <!-- plate shadow -->
+        <ellipse cx="360" cy="360" rx="220" ry="52" fill="rgba(0,0,0,0.08)"/>
+
+        <!-- plate -->
+        <g transform="translate(100,90)">
+          <ellipse cx="260" cy="220" rx="220" ry="120" fill="url(#g1)" stroke="#f2d9c8" stroke-width="8"/>
+          <ellipse cx="260" cy="220" rx="150" ry="82" fill="#fff9f0" stroke="#ffe9d6" stroke-width="4"/>
+          <!-- "Happy 54!" text -->
+          <text x="260" y="215" text-anchor="middle" font-family="Verdana, Geneva, sans-serif" font-size="46" font-weight="700" fill="#b71c1c">Happy <tspan font-size="58" fill="#d4a017">54!</tspan></text>
+
+          <!-- simple food: pasta swirl -->
+          <g transform="translate(160,120)">
+            <path d="M0,20 C20, -10 60,-10 80,20 C100,50 60,85 30,80 C10,78 -5,45 0,20Z" fill="#f3c27a" stroke="#d99a4a"/>
+            <circle cx="56" cy="36" r="6" fill="#b71c1c"/>
+          </g>
+
+          <!-- steam groups: three rising shapes -->
+          <g id="steam" transform="translate(260,90)">
+            <path class="steam s1" d="M0 0 C10 -30 30 -30 40 -60" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.6"/>
+            <path class="steam s2" d="M-18 6 C-8 -24 12 -24 22 -54" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.6"/>
+            <path class="steam s3" d="M18 10 C26 -14 46 -20 56 -44" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.6"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="info">
+      <div class="card">
+        <div class="invline line l1">Wat geef je iemand die altijd z’n eigen cadeaus koopt? 🛻🚜🏍️</div>
+        <div class="invline line l2">👉 Een etentje natuurlijk!</div>
+        <div class="meta line l3">
+          <div class="pill">Samen met je gezin</div>
+          <div class="pill">Lorijn — Amerongen</div>
+        </div>
+        <div class="meta line l4">
+          <div class="pill">📅 Vrijdag 8 november</div>
+          <div class="pill">🕕 18:00 uur</div>
+        </div>
+
+        <div class="actions line l5">
+          <button class="btn" id="rsvpBtn">Ik kom! 🎉</button>
+          <button class="btn ghost" id="shareBtn">Kopieer link</button>
+        </div>
+
+        <div class="rsvp-note" id="rsvpNote" aria-live="polite"></div>
+      </div>
+
+      <footer>
+        <div style="font-weight:600;color:#333;margin-bottom:6px">Wouter — 54 jaar</div>
+        <div style="font-size:13px;color:#666">We hopen je te zien — klik op <strong>Ik kom!</strong> om te laten weten dat jullie erbij zijn.</div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Simple confetti using canvas and falling pieces */
+(function(){
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let W, H, pieces = [];
+  const colors = ['#b71c1c','#d4a017','#ff6f61','#ffd07f','#ffb3b3','#8bc34a'];
+
+  function resize(){ W = canvas.width = document.body.clientWidth; H = canvas.height = document.body.clientHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function rand(min,max){ return Math.random()*(max-min)+min; }
+  function createPiece(){
+    return {
+      x: rand(0,W),
+      y: rand(-H,0),
+      w: rand(6,14),
+      h: rand(10,20),
+      velX: rand(-0.3,0.3),
+      velY: rand(1,3),
+      rot: rand(0,360),
+      rotSpeed: rand(-6,6),
+      color: colors[Math.floor(rand(0,colors.length))]
+    };
+  }
+  for(let i=0;i<60;i++) pieces.push(createPiece());
+
+  function update(){
+    ctx.clearRect(0,0,W,H);
+    for(let p of pieces){
+      p.x += p.velX;
+      p.y += p.velY;
+      p.rot += p.rotSpeed;
+      if(p.y > H + 30){ Object.assign(p, createPiece()); p.y = rand(-100, -10); }
+      // draw
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    }
+    requestAnimationFrame(update);
+  }
+  update();
+
+  // animate steam paths
+  function animateSteam(){
+    const s1 = document.querySelector('.steam.s1');
+    const s2 = document.querySelector('.steam.s2');
+    const s3 = document.querySelector('.steam.s3');
+    if(!s1) return;
+    // create CSS animations via JS
+    [s1, s2, s3].forEach((el, i) => {
+      el.style.animation = 'steamUp 2000ms ease-in-out ' + (i*300) + 'ms infinite';
+      el.style.opacity = '0.9';
+    });
+  }
+  setTimeout(animateSteam, 1200);
+
+  // staggered text already handled by CSS animations (line classes)
+
+  // RSVP behavior
+  const rsvpBtn = document.getElementById('rsvpBtn');
+  const shareBtn = document.getElementById('shareBtn');
+  const rsvpNote = document.getElementById('rsvpNote');
+
+  function showNote(msg, success=true){
+    rsvpNote.textContent = msg;
+    rsvpNote.style.color = success ? '#2a7f47' : '#b71c1c';
+    setTimeout(()=>{ rsvpNote.textContent = ''; }, 5000);
+  }
+
+  rsvpBtn.addEventListener('click', ()=>{
+    // show playful confirmation and offer to copy RSVP text
+    const confirmText = 'Wouter — we komen met z\'n allen om 18:00 uur op 8 november! 🎉';
+    // Try to copy to clipboard
+    navigator.clipboard.writeText(confirmText).then(()=>{
+      showNote('Bedankt — RSVP gekopieerd naar je klembord. Stuur het even terug in de chat als bevestiging!');
+    }).catch(()=>{
+      showNote('RSVP: ' + confirmText);
+    });
+    // small confetti burst
+    for(let i=0;i<24;i++){
+      pieces.push({
+        x: W/2 + (Math.random()-0.5)*60,
+        y: H/2 + (Math.random()-0.5)*20,
+        w: rand(6,12), h: rand(10,18),
+        velX: rand(-4,4), velY: rand(-6,-2),
+        rot: rand(0,360), rotSpeed: rand(-10,10),
+        color: colors[Math.floor(rand(0,colors.length))]
+      });
+    }
+  });
+
+  shareBtn.addEventListener('click', ()=>{
+    // create a shareable link: since this file is local, copy the page URL if hosted
+    const url = location.href;
+    navigator.clipboard.writeText(url).then(()=> {
+      showNote('Link naar kaart gekopieerd — plak in WhatsApp!');
+    }).catch(()=>{
+      showNote('Kopieer deze link handmatig: ' + url, false);
+    });
+  });
+
+  // initial friendly focus for accessibility
+  window.addEventListener('load', ()=>{ rsvpBtn.focus(); });
+})();
+</script>
+</body>
+</html>
